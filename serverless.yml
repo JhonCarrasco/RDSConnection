@@ -1,0 +1,63 @@
+service: RDSconnection
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  vpc:
+    securityGroupIds:
+      - sg-05006135d6cc7cb06
+    subnetIds:
+      - subnet-0f12d6c95e8e9cc62
+      - subnet-045fcb79b9fcde262
+      - subnet-029e83ba4aa943470
+      - subnet-0fef00e5c2d54d275
+      - subnet-0f60c2a6fb6ce6c33
+      - subnet-013e7006d9a22fd2b
+
+plugins:
+  - serverless-offline
+
+functions:
+  RDSTestConnection:
+    handler: handlers/handlerRDSTestConnection.RDSTestConnection
+    events:
+      - httpApi:
+          path: /RDSconnection/RDSTestConnection
+          method: get
+
+  RDScreate:
+    handler: handlers/handlerRDScreate.RDScreate
+    events:
+      - httpApi:
+          path: /RDSconnection/RDScreate
+          method: post
+
+  RDSupdate:
+    handler: handlers/handlerRDSupdate.RDSupdate
+    events:
+      - httpApi:
+          path: /RDSconnection/RDSupdate/{id}
+          method: put
+
+  RDSdelete:
+    handler: handlers/handlerRDSdelete.RDSdelete
+    events:
+      - httpApi:
+          path: /RDSconnection/RDSdelete/{id}
+          method: delete
+
+  RDSselect:
+    handler: handlers/handlerRDSselect.RDSselect
+    events:
+      - httpApi:
+          path: /RDSconnection/RDSselect/{id}
+          method: get
+
+  RDSgetUsers:
+    handler: handlers/handlerRDSgetUsers.RDSgetUsers
+    events:
+      - httpApi:
+          path: /RDSconnection/RDSgetUsers
+          method: get
